@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-	public Rigidbody rb;
-
-	// Use this for initialization
-	void Start () {
-		rb = GetComponent<Rigidbody>();
-	}
-
 	// Update is called once per frame
-	void FixedUpdate () {
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
-		rb.MovePosition(transform.position + new Vector3(moveHorizontal * 50, 0, moveVertical) * Time.deltaTime);
+	void Update ()
+	{
+		float moveVertical = 0;
+		float moveHorizontal = 0;
+
+		if (Input.GetKeyDown("up")) moveVertical = 1;
+		if (Input.GetKeyDown("down")) moveVertical = -1;
+		if (Input.GetKeyDown("left")) moveHorizontal = -1;
+		if (Input.GetKeyDown("right")) moveHorizontal = 1;
+
+		transform.Translate(new Vector3(moveHorizontal, 0, moveVertical));
+
 	}
 }
