@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
+	public Rigidbody rb;
 	public Text gameOver;
-	private bool wall;
+	public int coins;
 
 	void Start()
 	{
+		rb = GetComponent<Rigidbody>();
+		rb.freezeRotation = true;
 		gameOver.text = "";
-		wall = false;
 	}
 
 	void Update ()
 	{
+		if (transform.position.y < 0) handleGameOver();
 		float moveVertical = 0;
 		float moveHorizontal = 0;
-
-		if (transform.position.y < 0) gameOver.text ="Game Over!";
 
 		if (Input.GetKeyDown("up")) moveVertical = 1;
 		if (Input.GetKeyDown("down")) moveVertical = -1;
@@ -27,27 +28,37 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetKeyDown("right")) moveHorizontal = 1;
 
 		transform.Translate(new Vector3(moveHorizontal, 0, moveVertical));
-		if (wall) transform.Translate(new Vector3(-1, 0, 0));
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.gameObject.CompareTag("Player"))
 		{
+
 			other.gameObject.SetActive(false);
-		}
-		else if (other.gameObject.CompareTag("Collision"))
-		{
-			gameOver.text = "Game Over!";
+			coins++;
 		}
 		else if (other.gameObject.CompareTag("Stationary"))
 		{
-			wall = true;
+			Debug.Log("HI");
+			rb.velocity = Vector3.zero;
+		}
+		else if (other.gameObject.CompareTag("Collision"))
+		{
+			handleGameOver();
 		}
 	}
 
 	void OnTriggerExit(Collider other)
 	{
-		wall = false;
+		if (other.gameObject.CompareTag("Stationary"))
+		{
+			rb.velocity = Vector3.zero;
+		}
+	}
+
+	private void handleGameOver()
+	{
+		gameOver.text = "Game Over!";
 	}
 }

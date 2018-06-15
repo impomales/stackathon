@@ -7,6 +7,7 @@ TagManager:
   - Log
   - Collision
   - Stationary
+  - Water
   layers:
   - Default
   - TransparentFX
