@@ -17,4 +17,12 @@ public class PlayerMovement : MonoBehaviour {
 		transform.Translate(new Vector3(moveHorizontal, 0, moveVertical));
 
 	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag("Player"))
+		{
+			other.gameObject.SetActive(false);
+		}
+	}
 }
