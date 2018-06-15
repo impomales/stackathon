@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObstacleAnimation : MonoBehaviour {
 	public float speed;
-	public Vector3 start;
 	public bool toward;
 	private float step;
 
