@@ -66,6 +66,10 @@ public class PlayerMovement : MonoBehaviour {
 	private void handleGameOver(string message)
 	{
 		gameOver.text = message;
-		// SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		Invoke("reloadGame", 1f);
+	}
+
+	private void reloadGame() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }
