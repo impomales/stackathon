@@ -12,12 +12,14 @@ public class PlayerMovement : MonoBehaviour {
 	public Text coinsDisplay;
 	public float rightBound;
 	public float leftBound;
-
+	private float time;
+	public GameObject eagle;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 		gameOver.text = "";
+		time = 5;
 	}
 
 	void Update ()
@@ -28,7 +30,12 @@ public class PlayerMovement : MonoBehaviour {
 				handleGameOver("YOU FAIL!");
 		float moveVertical = 0;
 		float moveHorizontal = 0;
-
+		time -= Time.deltaTime;
+		if (time <= 0) {
+			time = 10;
+			eagle.GetComponent<EagleAnimation>().kill = true;
+		}
+		if (Input.anyKeyDown) time = 5;
 		if (Input.GetKeyDown("up")) moveVertical = 1;
 		if (Input.GetKeyDown("down")) moveVertical = -1;
 		if (Input.GetKeyDown("left")) moveHorizontal = -1;
