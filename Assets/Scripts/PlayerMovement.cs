@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	public Rigidbody rb;
 	public Text gameOver;
 	public int coins;
-
+	public Text coinsDisplay;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update ()
 	{
-		if (transform.position.y < 0) handleGameOver();
+		if (transform.position.y < 0) handleGameOver("YOU FAIL!");
 		float moveVertical = 0;
 		float moveHorizontal = 0;
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			other.gameObject.SetActive(false);
 			coins++;
+			coinsDisplay.text = "Coins: " + coins;
 		}
 		else if (other.gameObject.CompareTag("Stationary"))
 		{
@@ -45,7 +47,11 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		else if (other.gameObject.CompareTag("Collision"))
 		{
-			handleGameOver();
+			handleGameOver("YOU DIE!");
+		}
+		else if (other.gameObject.CompareTag("Finish"))
+		{
+			handleGameOver("YOU WIN!");
 		}
 	}
 
@@ -57,8 +63,9 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
-	private void handleGameOver()
+	private void handleGameOver(string message)
 	{
-		gameOver.text = "Game Over!";
+		gameOver.text = message;
+		// SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }
