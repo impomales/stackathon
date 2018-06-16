@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour {
 	public Text gameOver;
 	public int coins;
 	public Text coinsDisplay;
+	public float rightBound;
+	public float leftBound;
+
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -19,7 +22,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update ()
 	{
-		if (transform.position.y < 0) handleGameOver("YOU FAIL!");
+		if (transform.position.y < 0 ||
+				transform.position.x > rightBound ||
+				transform.position.x < leftBound)
+				handleGameOver("YOU FAIL!");
 		float moveVertical = 0;
 		float moveHorizontal = 0;
 
