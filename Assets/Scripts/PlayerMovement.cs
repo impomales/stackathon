@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
 		rb = GetComponent<Rigidbody>();
 		rb.freezeRotation = true;
 		gameOver.text = "";
-		time = 5;
+		time = 3;
 		isDirty = false;
 	}
 
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
 			eagle.GetComponent<EagleAnimation>().kill = true;
 		}
 		if (Input.anyKeyDown) {
-			time = 5;
+			time = 3;
 			isDirty = true;
 		}
 
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			other.gameObject.SetActive(false);
 			coins++;
-			coinsDisplay.text = "Coins: " + coins;
+			coinsDisplay.text = "Sauces: " + coins;
 		}
 		else if (other.gameObject.CompareTag("Stationary"))
 		{
